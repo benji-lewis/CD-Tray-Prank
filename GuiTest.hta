@@ -1,0 +1,109 @@
+<!--
+                                                                                                                                           
+                                                             dddddddd                                                                      
+MMMMMMMM               MMMMMMMM                              d::::::d                         BBBBBBBBBBBBBBBBB                            
+M:::::::M             M:::::::M                              d::::::d                         B::::::::::::::::B                           
+M::::::::M           M::::::::M                              d::::::d                         B::::::BBBBBB:::::B                          
+M:::::::::M         M:::::::::M                              d:::::d                          BB:::::B     B:::::B                         
+M::::::::::M       M::::::::::M  aaaaaaaaaaaaa       ddddddddd:::::d     eeeeeeeeeeee           B::::B     B:::::Byyyyyyy           yyyyyyy
+M:::::::::::M     M:::::::::::M  a::::::::::::a    dd::::::::::::::d   ee::::::::::::ee         B::::B     B:::::B y:::::y         y:::::y 
+M:::::::M::::M   M::::M:::::::M  aaaaaaaaa:::::a  d::::::::::::::::d  e::::::eeeee:::::ee       B::::BBBBBB:::::B   y:::::y       y:::::y  
+M::::::M M::::M M::::M M::::::M           a::::a d:::::::ddddd:::::d e::::::e     e:::::e       B:::::::::::::BB     y:::::y     y:::::y   
+M::::::M  M::::M::::M  M::::::M    aaaaaaa:::::a d::::::d    d:::::d e:::::::eeeee::::::e       B::::BBBBBB:::::B     y:::::y   y:::::y    
+M::::::M   M:::::::M   M::::::M  aa::::::::::::a d:::::d     d:::::d e:::::::::::::::::e        B::::B     B:::::B     y:::::y y:::::y     
+M::::::M    M:::::M    M::::::M a::::aaaa::::::a d:::::d     d:::::d e::::::eeeeeeeeeee         B::::B     B:::::B      y:::::y:::::y      
+M::::::M     MMMMM     M::::::Ma::::a    a:::::a d:::::d     d:::::d e:::::::e                  B::::B     B:::::B       y:::::::::y       
+M::::::M               M::::::Ma::::a    a:::::a d::::::ddddd::::::dde::::::::e               BB:::::BBBBBB::::::B        y:::::::y        
+M::::::M               M::::::Ma:::::aaaa::::::a  d:::::::::::::::::d e::::::::eeeeeeee       B:::::::::::::::::B          y:::::y         
+M::::::M               M::::::M a::::::::::aa:::a  d:::::::::ddd::::d  ee:::::::::::::e       B::::::::::::::::B          y:::::y          
+MMMMMMMM               MMMMMMMM  aaaaaaaaaa  aaaa   ddddddddd   ddddd    eeeeeeeeeeeeee       BBBBBBBBBBBBBBBBB          y:::::y           
+                                                                                                                        y:::::y            
+                                                                                                                       y:::::y             
+                                                                                                                      y:::::y              
+                                                                                                                     y:::::y               
+                                                                                                                    yyyyyyy                
+                                                                                                                                           
+                                                                                                                                           
+    ____                      _     _    _____           ____   __ 
+   / __ )  ___    ____       (_)   (_)  / ___/  ____    / __/  / /_
+  / __  | / _ \  / __ \     / /   / /   \__ \  / __ \  / /_   / __/
+ / /_/ / /  __/ / / / /    / /   / /   ___/ / / /_/ / / __/  / /_  
+/_____/  \___/ /_/ /_/  __/ /   /_/   /____/  \____/ /_/     \__/  
+                       /___/                                       
+//-->
+<HTML>
+<HEAD>
+	<TITLE>CD Drive Prank</TITLE>
+	<HTA:APPLICATION
+	SCROLL="no" 
+	/>
+
+<SCRIPT LANGUAGE=VBScript>
+
+Sub CDStart_OnClick
+	do
+	Dim ts
+	Dim strDriveLetter
+	Dim intDriveLetter
+	Dim fs 'As Scripting.FileSystemObject
+	Const CDROM = 4
+	On Error Resume Next
+	Set fs = CreateObject("Scripting.FileSystemObject")
+	strDriveLetter = ""
+	For intDriveLetter = Asc("A") To Asc("Z")
+	Err.Clear
+	If fs.GetDrive(Chr(intDriveLetter)).DriveType = CDROM Then
+	If Err.Number = 0 Then
+	strDriveLetter = Chr(intDriveLetter)
+	Exit For
+	End If
+	End If
+	Next
+	Set oWMP = CreateObject("WMPlayer.OCX.7" )
+	Set colCDROMs = oWMP.cdromCollection
+	For d = 0 to colCDROMs.Count - 1
+	colCDROMs.Item(d).Eject
+	Next 'null
+	
+	For d = 0 to colCDROMs.Count - 1
+	colCDROMs.Item(d).Eject
+	Next 'null
+	
+	set owmp = nothing
+	set colCDROMs = nothing
+	loop
+End Sub
+Sub Window_onLoad
+
+    window.resizeTo 990,235
+
+End Sub
+
+</SCRIPT>
+<style>
+div.Title {
+    background-color:#00ff00;
+    color:white;
+    margin:20px;
+    padding:20px;
+	font-weight: bold;
+	font-size: 2.5em;
+} 
+body {
+	background-color:#000000;
+}
+</style>
+</HEAD>
+
+<BODY>
+
+<div class="Title">
+Simply, press start and then minimize the window.
+</div>
+
+<BR />
+
+<INPUT TYPE="button" VALUE="Start" ID="CDStart" />
+
+</BODY>
+</HTML>
